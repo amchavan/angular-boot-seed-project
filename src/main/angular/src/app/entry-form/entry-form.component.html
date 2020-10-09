@@ -1,0 +1,52 @@
+<div class="modal-header">
+    Search criteria
+    <button class="btn close" type="button" (click)="activeModal.dismiss()">
+        <i class="fas fa-times"></i>
+    </button>
+</div>
+<div class="modal-body">
+
+    <form [formGroup]="entryForm">
+
+        <div class="row">
+            <!--  -->
+            <div class="col">
+                <div class="form-group field">
+                    <label for="timezone">Timezone</label>
+                    <div class="input-group">
+                        <div ngbDropdown placement="top-right">
+                            <button ngbDropdownToggle
+                                    class="btn btn-block"
+                                    [ngClass]="{'text-muted': v.timezone == null}"
+                                    id="timezone">
+                                {{ v.timezone == null ? "Select timezone..." : v.timezone }}
+                            </button>
+                            <div ngbDropdownMenu class="search-dropdown">
+                                  <span *ngFor="let timezone of timezones">
+                                      <button ngbDropdownItem (click)="onSelectTimezone( timezone )">
+                                          {{ timezone.zoneId }}
+                                      </button>
+                                  </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Button row -->
+        <div class="form-buttons button-row">
+            <button type="submit" class="btn btn-primary btn-sm" (click)="onSubmit()"
+                    tabindex="0">
+                <i class="fas fa-search has-text"></i>
+                Search
+            </button>
+
+            <button
+                    type="button" class="btn btn-danger btn-secondary btn-sm"
+                    (click)="cancel()" tabindex="0">
+                <i class="fas fa-window-close has-text"></i> Cancel
+            </button>
+        </div>
+    </form>
+</div>
