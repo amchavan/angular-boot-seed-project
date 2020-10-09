@@ -1,0 +1,12 @@
+<div class="modal-header">
+    <i class="fas fa-exclamation-triangle danger-icon"></i>
+    <button class="btn close" type="button" (click)="activeModal.dismiss()">
+        <i class="fas fa-times"></i>
+    </button>
+</div>
+<div class="modal-body">
+    {{errorDescription}}<br>
+    Server at {{serverName}}
+    responded with error code {{errorInfo.status}} ({{errorInfo.error.error}}):
+    <code>{{errorInfo.error.message}}</code>
+</div>

@@ -1,0 +1,6 @@
+{
+  "api_url" :       "service/api",
+  "api_url_dev" :   "http://localhost:10020/angular-spring-seed/service/api",
+  "admin_url" :     "admin",
+  "admin_url_dev" : "http://localhost:10020/angular-spring-seed/admin"
+}

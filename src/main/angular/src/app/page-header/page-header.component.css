@@ -1,0 +1,28 @@
+.alma-logo {
+  height: 40px;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 5px
+}
+
+.tab-head {
+  padding: 7px 10px 2px 10px;
+  height: 40px;
+  border: 0;
+  color: white;
+  cursor: pointer;
+}
+
+.tab-head.active {
+  background: #ffffff;
+  color: black;
+}
+
+#home-tab {
+  /* special padding for the home tab */
+  padding: 0 10px 0 15px;
+}
+
+.alma-sw-version {
+  font-size: 75%;
+}

@@ -1,0 +1,102 @@
+/*
+ * Application-wide style definitions
+ */
+
+@import "~@almaobservatory/ui-guidelines-styles/dist/alma-ui-guidelines.css";
+
+.anten {
+    color: white;
+    background-color: #808080;
+    border:1px solid white;
+    padding-left: 5px;
+}
+
+.aog {
+    color: white;
+    background-color: #4862a3;
+    border:1px solid white;
+    padding-left: 5px;
+}
+
+.array {
+    color: white;
+    background-color: #5e3d76;
+    border:1px solid white;
+    padding-left: 5px;
+}
+
+.cmdln {
+    background-color: #eedac7;
+    border:1px solid white;
+    padding-left: 5px;
+}
+
+.down {
+    color: white;
+    background-color: #9999cc;
+    border:1px solid white;
+    padding-left: 5px;
+}
+
+.engin {
+    color: white;
+    background-color: #698134;
+    border:1px solid white;
+    padding-left: 5px;
+}
+
+.entry {
+    color: white;
+    background-color: #0000cd;
+    border:1px solid white;
+    padding-left: 5px;
+}
+
+.mmex {
+    color: white;
+    background-color: #333333;
+    border:1px solid white;
+    padding-left: 5px;
+}
+
+.sbex {
+    color: white;
+    background-color: #a0522d;
+    border:1px solid white;
+    padding-left: 5px;
+}
+
+.shift {
+    background-color: #ffff00;
+    border:1px solid white;
+    padding-left: 5px;
+}
+
+.weath {
+    color: white;
+    background-color: #0080ff;
+    border:1px solid white;
+    padding-left: 5px;
+}
+
+.empty-space {
+	min-height:10px;
+}
+/*override the bootstrap sm modal size for the report box*/
+.modal-sm{
+	max-width:600px !important;
+	min-width:400px !important;
+}
+
+.search-dropdown{
+    max-height: 300px;
+    overflow: auto;
+}
+
+.disable-text-selection {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
