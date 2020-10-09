@@ -24,7 +24,7 @@
                             <div ngbDropdownMenu class="search-dropdown">
                                   <span *ngFor="let timezone of timezones">
                                       <button ngbDropdownItem (click)="onSelectTimezone( timezone )">
-                                          {{ timezone.zoneId }}
+                                          {{ render(timezone) }}
                                       </button>
                                   </span>
                             </div>

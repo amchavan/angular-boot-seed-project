@@ -4,10 +4,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { PageHeaderComponent } from './page-header/page-header.component';
-//import { WsltSearchFormComponent } from './entry-form/wslt-search-form.component.ts.SAVED';
+import { EntryFormComponent } from './entry-form/entry-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MainButtonGroupComponent } from './main-button-group/main-button-group.component';
-import { DateTimeSelectorComponent } from './date-time-selector/date-time-selector.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MessageExchange } from './message-exchange';
 import { DataProvider } from './data-provider';
@@ -19,9 +18,8 @@ import { ErrorBoxComponent } from './error-box/error-box.component';
     declarations: [
         AppComponent,
         PageHeaderComponent,
-        // WsltSearchFormComponent,
+        EntryFormComponent,
         MainButtonGroupComponent,
-        DateTimeSelectorComponent,
         ErrorBoxComponent,
     ],
     imports: [
@@ -44,7 +42,7 @@ import { ErrorBoxComponent } from './error-box/error-box.component';
     ],
     bootstrap: [AppComponent],
     entryComponents: [
-        // WsltSearchFormComponent,
+        EntryFormComponent,
         BusyIndicatorComponent,
         ErrorBoxComponent,
     ]

@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/service/api")
+@CrossOrigin(allowCredentials="true")
 public class MainController {
 
     final private TimeService timeService;

@@ -75,12 +75,14 @@ export class DataProvider {
 
     fetchVersion() : Promise<Object> {
         return this.httpClient.get(globalConfiguration.admin_url + '/version').toPromise();
-            // .then((res) => {
-            //     this.buildInfo = res;
-            //     this.readyBuildInfo.next(this.buildInfo);  // tell our waiters they may go ahead now
-            // })
-            // .catch(error => {
-            //     console.log('Promise rejected with ' + JSON.stringify(error));
-            // });
+    }
+
+    fetchCurrentTime(timezone: any): Promise<Object> {
+        console.log( ">>> HERE" );
+        return null;
+    }
+
+    fetchTimezones(): Promise<Object> {
+        return this.httpClient.get(globalConfiguration.api_url + '/timezones').toPromise();
     }
 }

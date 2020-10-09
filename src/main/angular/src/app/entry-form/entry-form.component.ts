@@ -24,13 +24,7 @@ export class EntryFormComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.mx.getExchange().subscribe( message => {
-            console.log('>>> message:', message.type);
-            if (message.type === MessageExchange.GLOBAL_CONFIG_AVAILABLE ) {
-                this.fetchTimezones();
-            }
-        });
-
+        this.fetchTimezones();
         this.entryForm = this.makeFormGroup(this.formBuilder);
     }
 
@@ -53,6 +47,10 @@ export class EntryFormComponent implements OnInit {
 
     broadcastQueryResults( currentTime: string ) {
         this.mx.broadcastCurrentTime( currentTime );
+    }
+
+    render( tz : any ) {
+        return tz['zoneOffset'] + ' ' + tz['zoneId']
     }
 
     onSelectTimezone(tz) {
