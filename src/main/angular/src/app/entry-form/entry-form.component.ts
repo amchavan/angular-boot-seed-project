@@ -46,11 +46,12 @@ export class EntryFormComponent implements OnInit {
     }
 
     broadcastQueryResults( currentTime: string ) {
-        this.mx.broadcastCurrentTime( currentTime );
+        this.mx.broadcastTimezone( currentTime );
     }
 
     renderTimezone(tz: any ) {
-        return tz['zoneOffset'] + ' ' + tz['zoneId']
+        const offset = tz['zoneOffset'] === 'Z' ? '00:00' : tz['zoneOffset'];
+        return offset + ' ' + tz['zoneId']
     }
 
     onSelectTimezone( tz: string ) {
@@ -58,7 +59,7 @@ export class EntryFormComponent implements OnInit {
     }
 
     onSubmit() {
-        this.dataProvider.fetchCurrentTime( this.f.timezone.value );
+        this.broadcastQueryResults( this.v.timezone );
         this.activeModal.dismiss();
     }
 
