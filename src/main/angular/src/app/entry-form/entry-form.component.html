@@ -1,5 +1,5 @@
 <div class="modal-header">
-    Search criteria
+    Timezones
     <button class="btn close" type="button" (click)="activeModal.dismiss()">
         <i class="fas fa-times"></i>
     </button>
@@ -14,7 +14,7 @@
                 <div class="form-group field">
                     <label for="timezone">Timezone</label>
                     <div class="input-group">
-                        <div ngbDropdown placement="top-right">
+                        <div ngbDropdown placement="bottom-right">
                             <button ngbDropdownToggle
                                     class="btn btn-block"
                                     [ngClass]="{'text-muted': v.timezone == null}"
