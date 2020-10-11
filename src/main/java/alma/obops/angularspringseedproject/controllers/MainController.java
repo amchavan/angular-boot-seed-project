@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  * @author amchavan, 09-Oct-2020
@@ -66,8 +67,10 @@ public class MainController {
     public Object doDatetime( @RequestParam( name = "timezone", defaultValue = "UTC" ) String timeZone,
 							  HttpServletResponse response ) {
 		try {
-			return timeService.currentTime( timeZone );
-		} catch (Exception e) {
+			final var datetime = timeService.currentTime(timeZone);
+			return Map.of( "datetime", datetime, "timezone", timeZone );
+		}
+		catch (Exception e) {
 			response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
 			return "Invalid timezone='" + timeZone + "'";
 		}

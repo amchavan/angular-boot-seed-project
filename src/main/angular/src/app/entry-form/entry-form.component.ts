@@ -41,7 +41,7 @@ export class EntryFormComponent implements OnInit {
     makeFormGroup(fb: FormBuilder): FormGroup {
 
         return fb.group({
-            timezones: [null, []],
+            timezone: [null, []],
         })
     }
 
@@ -49,11 +49,11 @@ export class EntryFormComponent implements OnInit {
         this.mx.broadcastCurrentTime( currentTime );
     }
 
-    render( tz : any ) {
+    renderTimezone(tz: any ) {
         return tz['zoneOffset'] + ' ' + tz['zoneId']
     }
 
-    onSelectTimezone(tz) {
+    onSelectTimezone( tz: string ) {
         this.f.timezone.setValue( tz );
     }
 

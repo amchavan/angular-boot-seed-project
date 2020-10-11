@@ -78,8 +78,7 @@ export class DataProvider {
     }
 
     fetchCurrentTime(timezone: any): Promise<Object> {
-        console.log( ">>> HERE" );
-        return null;
+        return this.httpClient.get(globalConfiguration.api_url + '/datetime?timezone=' + timezone.zoneId ).toPromise();
     }
 
     fetchTimezones(): Promise<Object> {

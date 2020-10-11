@@ -19,12 +19,12 @@
                                     class="btn btn-block"
                                     [ngClass]="{'text-muted': v.timezone == null}"
                                     id="timezone">
-                                {{ v.timezone == null ? "Select timezone..." : v.timezone }}
+                                {{ v.timezone == null ? "Select timezone..." : renderTimezone( v.timezone ) }}
                             </button>
                             <div ngbDropdownMenu class="search-dropdown">
                                   <span *ngFor="let timezone of timezones">
                                       <button ngbDropdownItem (click)="onSelectTimezone( timezone )">
-                                          {{ render(timezone) }}
+                                          {{ renderTimezone(timezone) }}
                                       </button>
                                   </span>
                             </div>
@@ -36,15 +36,12 @@
 
         <!-- Button row -->
         <div class="form-buttons button-row">
-            <button type="submit" class="btn btn-primary btn-sm" (click)="onSubmit()"
-                    tabindex="0">
-                <i class="fas fa-search has-text"></i>
-                Search
+            <button type="submit" class="btn btn-primary btn-sm" (click)="onSubmit()" tabindex="0">
+                <i class="fas fa-search has-text"></i> Select
             </button>
 
             <button
-                    type="button" class="btn btn-danger btn-secondary btn-sm"
-                    (click)="cancel()" tabindex="0">
+                    type="button" class="btn btn-danger btn-secondary btn-sm" (click)="cancel()" tabindex="1">
                 <i class="fas fa-window-close has-text"></i> Cancel
             </button>
         </div>
