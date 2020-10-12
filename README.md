@@ -30,14 +30,16 @@ npm install
 ng serve
 ```
 
-In your browser navigate to http://localhost:4200
+In your browser, navigate to http://localhost:4200
 
 ## Production set-up
 
 For a more production-style deployment:
 ```
 cd angular-boot-seed-project
-mvn 
+mvn install
+java -jar target/angular-spring-seed-project-0.0.1.jar
 ```
 
+In your browser, navigate to http://localhost:10020/angular-spring-seed
 
