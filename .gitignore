@@ -147,3 +147,4 @@ Desktop.ini
 # ESLint
 ######################
 .eslintcache
+/src/main/angular/out-tsc/

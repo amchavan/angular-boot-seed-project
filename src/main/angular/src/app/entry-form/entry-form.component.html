@@ -17,9 +17,9 @@
                         <div ngbDropdown placement="bottom-right">
                             <button ngbDropdownToggle
                                     class="btn btn-block"
-                                    [ngClass]="{'text-muted': v.timezone == null}"
+                                    [ngClass]="{'text-muted': v.timezone === null}"
                                     id="timezone">
-                                {{ v.timezone == null ? "Select timezone..." : renderTimezone( v.timezone ) }}
+                                {{ v.timezone === null ? "Select timezone..." : renderTimezone( v.timezone ) }}
                             </button>
                             <div ngbDropdownMenu class="search-dropdown">
                                   <span *ngFor="let timezone of timezones">

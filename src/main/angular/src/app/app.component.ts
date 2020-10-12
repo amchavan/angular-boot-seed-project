@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.mx.getExchange().subscribe( message => {
+        this.mx.subscribe( message => {
             console.log('>>> AppComponent received:', message.type);
             if (message.type === MessageExchange.GLOBAL_CONFIG_AVAILABLE ) {
                 this.subscription = AppComponent.launchBackgroundLoop( this.updateClock( this ), 1000 );
@@ -32,21 +32,37 @@ export class AppComponent implements OnInit {
             }
         });
 
-        this.fetchAllStartupInfo();
+        // Fetch global configuration information
+        this.dataProvider.fetchGlobalConfiguration();
     }
 
-    private updateClock( component: AppComponent ) {
-        return function() {
+    /**
+     * Define the background task getting the current time from the server. The task (a function) executes
+     * in a different context and it will not have access to the component via 'this', so we need to return
+     * a closure including this component.
+     *
+     * @param component  This component (to build the closure)
+     *
+     * @return A void function taking a numerical parameter (the iteration number). It invokes the server's
+     *         /datetime endpoint and saves the response to this component's 'datetime' field.
+     */
+    private updateClock( component: AppComponent ): (number) => void {
+        return function(ignored: number): void {
             component.dataProvider.fetchCurrentTime( component.timezone['zoneId'] )
                 .then(datetime => component.datetime = datetime['datetime'])
                 .catch(reason => console.error(reason));
         }
     }
 
-    // Launch a background loop repeating an action every n milliseconds
-    private static launchBackgroundLoop(action: any, delay: number ): Subscription {
+    /**
+     * Launch a background loop repeating a task
+     *
+     * @param task   The task to execute (a void function taking a numerical parameter, the iteration number)
+     * @param delay  Time to wait between two iterations of the loop, in milliseconds
+     */
+    private static launchBackgroundLoop( task: any, delay: number ): Subscription {
         const source = interval( delay );
-        return source.subscribe( action );
+        return source.subscribe( task );
     }
 
     ngOnDestroy() {
@@ -54,16 +70,11 @@ export class AppComponent implements OnInit {
     }
 
     // Fetch all startup information from the backend server
-    public fetchAllStartupInfo() {
-        // Fetch global configuration information
-        this.dataProvider.fetchGlobalConfiguration();
-    }
-
     public renderDatetime(): string {
         if( this.datetime === undefined ) {
             return "(not available)";
         }
-        return this.datetime.split('\.')[0];
+        return this.datetime.replace( 'T', ' ' ).split('\.')[0];
     }
 
     renderTimezone() {

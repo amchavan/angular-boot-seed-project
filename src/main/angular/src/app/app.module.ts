@@ -10,7 +10,6 @@ import { MainButtonGroupComponent } from './main-button-group/main-button-group.
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MessageExchange } from './message-exchange';
 import { DataProvider } from './data-provider';
-import { BusyIndicatorModule, BusyIndicatorComponent, BusyIndicatorService } from '@almaobservatory/busy-indicator';
 import { HttpErrorInterceptor } from './http-error.interceptor';
 import { ErrorBoxComponent } from './error-box/error-box.component';
 
@@ -29,21 +28,18 @@ import { ErrorBoxComponent } from './error-box/error-box.component';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        BusyIndicatorModule
     ],
     providers: [
         NgbActiveModal,
         HttpClientModule,
         MessageExchange,
         DataProvider,
-        BusyIndicatorService,
         { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
 
     ],
     bootstrap: [AppComponent],
     entryComponents: [
         EntryFormComponent,
-        BusyIndicatorComponent,
         ErrorBoxComponent,
     ]
 })

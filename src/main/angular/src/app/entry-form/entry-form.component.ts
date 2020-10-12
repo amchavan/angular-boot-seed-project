@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NgbActiveModal, NgbDateAdapter, NgbDateNativeAdapter} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {DataProvider} from '../data-provider';
 import {MessageExchange} from '../message-exchange';
@@ -8,12 +8,10 @@ import {MessageExchange} from '../message-exchange';
     selector: 'entry-form',
     templateUrl: './entry-form.component.html',
     styleUrls: ['./entry-form.component.css'],
-    providers: [
-        {provide: NgbDateAdapter, useClass: NgbDateNativeAdapter}
-        ]
 })
 export class EntryFormComponent implements OnInit {
 
+    static timezone = null;
     timezones: any = null;
     entryForm: any;
 
@@ -39,14 +37,9 @@ export class EntryFormComponent implements OnInit {
     }
 
     makeFormGroup(fb: FormBuilder): FormGroup {
-
         return fb.group({
-            timezone: [null, []],
+            timezone: [EntryFormComponent.timezone, []],
         })
-    }
-
-    broadcastQueryResults( currentTime: string ) {
-        this.mx.broadcastTimezone( currentTime );
     }
 
     renderTimezone(tz: any ) {
@@ -59,7 +52,8 @@ export class EntryFormComponent implements OnInit {
     }
 
     onSubmit() {
-        this.broadcastQueryResults( this.v.timezone );
+        EntryFormComponent.timezone = this.v.timezone;
+        this.mx.broadcastTimezone(this.v.timezone);
         this.activeModal.dismiss();
     }
 

@@ -27,7 +27,7 @@ export class PageHeaderComponent implements OnInit {
     ngOnInit() {
 
         // Put up a modal error box when we receive message
-        this.messageExchangeSubscription = this.mx.getExchange().subscribe( message => {
+        this.messageExchangeSubscription = this.mx.subscribe( message => {
             console.log('>>> PageHeaderComponent received:', message.type);
             if (message.type === 'error-message') {
                 this.openErrorBox( message.serverName, message.errorDescription, message.errorInfo );

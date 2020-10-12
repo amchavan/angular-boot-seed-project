@@ -7,20 +7,20 @@ const configDefs = '/assets/config/config.json';
 
 /** Global globalConfiguration information */
 export const globalConfiguration: any = {
-    api_url: undefined,
-    admin_url: undefined,
-    protrack_url: undefined,
-    aqua_url: undefined
+    apiUrl: undefined,
+    adminUrl: undefined,
+    protrackUrl: undefined,
+    aquaUrl: undefined
 };
 
 
 @Injectable()
 export class DataProvider {
 
-    private readonly API_URL_DEV_FIELD = 'api_url_dev';
-    private readonly ADMIN_URL_DEV_FIELD = 'admin_url_dev';
-    private readonly API_URL_FIELD = 'api_url';
-    private readonly ADMIN_URL_FIELD = 'admin_url';
+    private readonly API_URL_DEV_FIELD = 'devApiUrl';
+    private readonly ADMIN_URL_DEV_FIELD = 'devAdminUrl';
+    private readonly API_URL_FIELD = 'apiUrl';
+    private readonly ADMIN_URL_FIELD = 'adminUrl';
 
     constructor( private httpClient: HttpClient,
                  public mx: MessageExchange ) {
@@ -57,14 +57,14 @@ export class DataProvider {
                 // front-end served by the Angular CLI?
                 if (document.URL.indexOf('42') >= 0) {
                     // Our URL is something like localhost:4200 -- dev mode
-                    globalConfiguration.api_url = res[this.API_URL_DEV_FIELD];
-                    globalConfiguration.admin_url = res[this.ADMIN_URL_DEV_FIELD];
+                    globalConfiguration.apiUrl = res[this.API_URL_DEV_FIELD];
+                    globalConfiguration.adminUrl = res[this.ADMIN_URL_DEV_FIELD];
                 }
                 else {
                     // Integration testing, or production mode -- the front-end
                     // is served by the Spring Boot application
-                    globalConfiguration.api_url = res[this.API_URL_FIELD];
-                    globalConfiguration.admin_url = res[this.ADMIN_URL_FIELD];
+                    globalConfiguration.apiUrl = res[this.API_URL_FIELD];
+                    globalConfiguration.adminUrl = res[this.ADMIN_URL_FIELD];
                 }
 
                 this.mx.broadcastGlobalConfigAvailable();
@@ -74,14 +74,15 @@ export class DataProvider {
     }
 
     fetchVersion() : Promise<Object> {
-        return this.httpClient.get(globalConfiguration.admin_url + '/version').toPromise();
+        return this.httpClient.get(globalConfiguration.adminUrl + '/version').toPromise();
     }
 
     fetchCurrentTime(timezone: any): Promise<Object> {
-        return this.httpClient.get(globalConfiguration.api_url + '/datetime?timezone=' + timezone ).toPromise();
+        const url = globalConfiguration.apiUrl + '/datetime?timezone=' + encodeURIComponent( timezone );
+        return this.httpClient.get( url ).toPromise();
     }
 
     fetchTimezones(): Promise<Object> {
-        return this.httpClient.get(globalConfiguration.api_url + '/timezones').toPromise();
+        return this.httpClient.get(globalConfiguration.apiUrl + '/timezones').toPromise();
     }
 }

@@ -1,7 +1,5 @@
 import {Component} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {MessageExchange} from '../message-exchange';
-import {DataProvider} from '../data-provider';
 import {EntryFormComponent} from "../entry-form/entry-form.component";
 
 @Component({
@@ -11,9 +9,7 @@ import {EntryFormComponent} from "../entry-form/entry-form.component";
 })
 export class MainButtonGroupComponent {
 
-  constructor(private modalService: NgbModal,
-              private dataProvider: DataProvider,
-              private mx: MessageExchange) {
+  constructor(private modalService: NgbModal ) {
   }
 
   openEntryForm() {
