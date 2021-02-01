@@ -2,7 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DataProvider} from './data-provider';
 import {interval, Subscription} from 'rxjs';
 import {MessageExchange} from './message-exchange';
-import {NODES} from './simple-tree/mock-nodes';
+import {MOCK_TREE_NODES} from './mock-tree-nodes';
+import {AdaptedTree, SimpleTreeNodeXmlAdapter} from './adapted-tree-nodes';
 
 @Component({
     selector: 'app-root',
@@ -13,7 +14,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
     public timezone = { zoneId: 'UTC', zoneOffset: 'Z' };               // current timezone
     public datetime: string;                                            // current datetime
-    public dataTreeNodes = NODES;
+    public mockTreeNodes = MOCK_TREE_NODES;
+    private xmlText = '<book>' +
+        '<title>Everyday Italian</title>' +
+        '<author>Giada De Laurentiis</author>' +
+        '<year>2005</year>' +
+        '</book>';
+
+    public adaptedTreeNodes = [ SimpleTreeNodeXmlAdapter.fromXml( this.xmlText )]; // [new AdaptedTree()];
     private subscription: Subscription;
 
     /**
@@ -60,7 +68,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private updateClock( component: AppComponent ): () => void {
         return () => {
             component.dataProvider.fetchCurrentTime( component.timezone.zoneId )
-                .then(datetime => component.datetime = datetime['datetime'])
+                .then(datetime => component.datetime = datetime.datetime)
                 .catch(reason => console.error(reason));
         };
     }

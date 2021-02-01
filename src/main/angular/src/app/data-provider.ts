@@ -1,6 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {MessageExchange} from "./message-exchange";
+import {MessageExchange} from './message-exchange';
 
 /** Where this application's globalConfiguration information is stored */
 const configDefs = '/assets/config/config.json';

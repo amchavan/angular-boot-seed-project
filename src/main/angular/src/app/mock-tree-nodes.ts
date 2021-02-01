@@ -1,6 +1,6 @@
-import { SimpleTreeNode } from './simple-tree-node';
+import { SimpleTreeNode } from './simple-tree/simple-tree-node';
 
-export const NODES: SimpleTreeNode[] = [
+export const MOCK_TREE_NODES: SimpleTreeNode[] = [
     {
         name: 'Africa',
         showChildren: false,

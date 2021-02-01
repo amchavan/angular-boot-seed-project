@@ -1,5 +1,5 @@
 export interface SimpleTreeNode {
-    name: string;
+    readonly name: string;
     showChildren: boolean;
-    children: SimpleTreeNode[];
+    readonly children: SimpleTreeNode[];
 }
