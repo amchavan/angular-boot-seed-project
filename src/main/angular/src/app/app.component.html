@@ -1,7 +1,12 @@
 <div class="container-fluid">
     <page-header></page-header>
-    <main-button-group></main-button-group>
-    <span class="clock">
+    <div>
+        <main-button-group></main-button-group>
+        <span class="clock">
         Current {{ renderTimezone() }} datetime is {{ renderDatetime() }}
     </span>
+    </div>
+    <div>
+        <simple-tree [treeData]="dataTreeNodes"></simple-tree>
+    </div>
 </div>

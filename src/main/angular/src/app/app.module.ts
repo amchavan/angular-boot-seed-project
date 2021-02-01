@@ -12,6 +12,7 @@ import { MessageExchange } from './message-exchange';
 import { DataProvider } from './data-provider';
 import { HttpErrorInterceptor } from './http-error.interceptor';
 import { ErrorBoxComponent } from './error-box/error-box.component';
+import { SimpleTreeComponent } from './simple-tree/simple-tree.component';
 
 @NgModule({
     declarations: [
@@ -20,6 +21,7 @@ import { ErrorBoxComponent } from './error-box/error-box.component';
         EntryFormComponent,
         MainButtonGroupComponent,
         ErrorBoxComponent,
+        SimpleTreeComponent
     ],
     imports: [
         BrowserModule,
