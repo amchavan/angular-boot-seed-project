@@ -1,9 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {DataProvider} from './data-provider';
-import {interval, Subscription} from 'rxjs';
-import {MessageExchange} from './message-exchange';
-import {MOCK_TREE_NODES} from './mock-tree-nodes';
-import {AdaptedTree, SimpleTreeNodeXmlAdapter} from './adapted-tree-nodes';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { DataProvider } from './data-provider';
+import { interval, Subscription } from 'rxjs';
+import { MessageExchange } from './message-exchange';
+import { RAW_TREE_NODE } from './raw-tree-nodes';
+import { SimpleTreeNodeXmlAdapter } from './simple-tree-node-xml-adapter';
+import { SimpleTreeNode } from './simple-tree/simple-tree-node';
 
 @Component({
     selector: 'app-root',
@@ -14,14 +15,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
     public timezone = { zoneId: 'UTC', zoneOffset: 'Z' };               // current timezone
     public datetime: string;                                            // current datetime
-    public mockTreeNodes = MOCK_TREE_NODES;
+    public rawTreeNodes = [RAW_TREE_NODE];
     private xmlText = '<book>' +
         '<title>Everyday Italian</title>' +
         '<author>Giada De Laurentiis</author>' +
         '<year>2005</year>' +
         '</book>';
 
-    public adaptedTreeNodes = [ SimpleTreeNodeXmlAdapter.fromXml( this.xmlText )]; // [new AdaptedTree()];
+    public xmlTree: SimpleTreeNode[];
     private subscription: Subscription;
 
     /**
@@ -42,6 +43,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
 
+        this.xmlTree = [ SimpleTreeNodeXmlAdapter.fromXml( this.xmlText )];
         this.mx.subscribe( message => {
             console.log('>>> AppComponent received:', message.type);
             if (message.type === MessageExchange.GLOBAL_CONFIG_AVAILABLE ) {
@@ -68,7 +70,10 @@ export class AppComponent implements OnInit, OnDestroy {
     private updateClock( component: AppComponent ): () => void {
         return () => {
             component.dataProvider.fetchCurrentTime( component.timezone.zoneId )
-                .then(datetime => component.datetime = datetime.datetime)
+                .then(response => {
+                    const datetimeFieldName = 'datetime';
+                    return component.datetime = response[datetimeFieldName];
+                })
                 .catch(reason => console.error(reason));
         };
     }

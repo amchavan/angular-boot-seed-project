@@ -3,11 +3,11 @@
     <li *ngFor="let node of treeData"> <!-- foreach node -->
 
         <span (click)="toggleChild(node)">
-            <span *ngIf="node.children.length != 0">                            <!-- does the node have children? -->
+            <span *ngIf="node.childrenCount != 0">                            <!-- does the node have children? -->
                 <i *ngIf="node.showChildren" class="fas fa-angle-down"></i>     <!-- YES: if showing then, icon DOWN -->
                 <i *ngIf="!node.showChildren" class="fas fa-angle-right"></i>   <!--      otherwise, icon RIGHT -->
             </span>
-            <span *ngIf="node.children.length == 0">                            <!-- NO: just display an invisible icon -->
+            <span *ngIf="node.childrenCount == 0">                              <!-- NO: just display an invisible icon -->
                 <i class="fas fa-angle-up" style="color: white"></i>
             </span>
             {{ node.name }}

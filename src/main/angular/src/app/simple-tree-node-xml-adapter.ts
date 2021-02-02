@@ -1,42 +1,16 @@
-import {Injectable} from '@angular/core';
-import {SimpleTreeNode} from './simple-tree/simple-tree-node';
+import { SimpleTreeNode } from './simple-tree/simple-tree-node';
 
-@Injectable()
-export class AdaptedTree implements SimpleTreeNode {
-    private readonly theNode: SimpleTreeNode ;
-
-    constructor() {
-        this.theNode = this.node( 'root' );
-    }
-
-    get children(): SimpleTreeNode[] {
-        return [];
-    }
-
-    get name(): string {
-        return this.theNode.name;
-    }
-
-    get showChildren(): boolean {
-        return this.theNode.showChildren;
-    }
-
-    set showChildren( show) {
-        this.theNode.showChildren = show;
-    }
-
-    private node( nodeLabel: string ): SimpleTreeNode {
-        return {
-            name: nodeLabel,
-            showChildren: true,
-            children: []
-        };
-    }
-}
-
+/**
+ * A simple-minded implementation of SimpleTreeNode that allows
+ * displaying the contents of an XML document as an expandable
+ * tree.
+ *
+ * DEMO! Only works on simple cases.
+ *
+ * @author amchavan, 02-Feb-2020
+ */
 export class SimpleTreeNodeXmlAdapter implements SimpleTreeNode {
 
-    private readonly treeNode: SimpleTreeNode ;
     private readonly xmlNode: Node;
     private doShowChildren: boolean;
 
@@ -45,7 +19,6 @@ export class SimpleTreeNodeXmlAdapter implements SimpleTreeNode {
         const xmlDocument = domParser.parseFromString(xml, 'text/xml');
         return new SimpleTreeNodeXmlAdapter( xmlDocument.documentElement, true );
     }
-
 
     constructor( xmlNode: Node, doShowChildren: boolean ) {
         this.xmlNode = xmlNode;
@@ -75,4 +48,8 @@ export class SimpleTreeNodeXmlAdapter implements SimpleTreeNode {
         this.doShowChildren = show;
     }
 
+    get childrenCount(): number {
+        const parent: ParentNode = (this.xmlNode as unknown as ParentNode);
+        return parent.childElementCount;
+    }
 }
