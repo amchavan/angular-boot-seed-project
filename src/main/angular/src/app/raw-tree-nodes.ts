@@ -34,7 +34,7 @@ export const RAW_TREE_NODE: SimpleTreeNode = {
                 { name: 'Rome', children: [], childrenCount: 0 },
                 { name: 'Milan', children: [], childrenCount: 0 },
                 { name: 'Turin', children: [], childrenCount: 0 },
-                { name: 'Genua', children: [], childrenCount: 0 },
+                { name: 'Florence', children: [], childrenCount: 0 },
                 { name: 'Naples', children: [], childrenCount: 0 },
                 { name: 'Verona', children: [], childrenCount: 0 }
                 ],
