@@ -42,7 +42,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.mx.subscribe( message => {
             console.log('>>> AppComponent received:', message.type);
             if (message.type === MessageExchange.GLOBAL_CONFIG_AVAILABLE ) {
-                this.subscription = AppComponent.launchBackgroundLoop( this.updateClock( this ), 100_000 );
+                this.subscription = AppComponent.launchBackgroundLoop( this.updateClock( this ), 1_000 );
             } else if (message.type === MessageExchange.CURRENT_TIMEZONE ) {
                 this.timezone = message.currentTimezone;
             }
