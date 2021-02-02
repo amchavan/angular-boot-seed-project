@@ -1,15 +1,23 @@
 <div class="container-fluid">
     <page-header></page-header>
-    <div>
-        <main-button-group></main-button-group>
-        <span class="clock">
-        Current {{ renderTimezone() }} datetime is {{ renderDatetime() }}
-    </span>
+    <div class="container">
+        <div class="row">
+            <main-button-group></main-button-group>
+            <span class="clock" style="padding-left: 10px">
+                Current {{ renderTimezone() }} datetime is {{ renderDatetime() }}
+            </span>
+        </div>
     </div>
-    <div>
-        <span>
-            <simple-tree [treeData]="xmlTree"></simple-tree>
-            <simple-tree [treeData]="rawTreeNodes"></simple-tree>
-        </span>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <h3>XML file display</h3>
+                <simple-tree [treeData]="xmlTree"></simple-tree>
+            </div>
+            <div class="col-sm">
+                <h3>"Raw data" tree</h3>
+                <simple-tree [treeData]="rawTreeNodes"></simple-tree>
+            </div>
+        </div>
     </div>
 </div>

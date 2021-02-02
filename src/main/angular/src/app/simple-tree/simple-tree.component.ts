@@ -13,6 +13,7 @@ export class SimpleTreeComponent implements OnInit {
   @Input() treeData: SimpleTreeNode[];
 
   ngOnInit() {
+    console.log( '>>> treeData:', this.treeData );
   }
 
   toggleChild(node) {

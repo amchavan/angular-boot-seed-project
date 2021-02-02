@@ -54,6 +54,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                             serverName = error.url.substring( begin, begin + end );
                             errorInfo = error;
                             errorDescription = 'There was an unexpected error';
+                            if (error.message) {
+                                errorDescription += ': ' + error.message;
+                            }
                         }
                     }
 

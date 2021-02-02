@@ -59,8 +59,7 @@ export class DataProvider {
                     // Our URL is something like localhost:4200 -- dev mode
                     globalConfiguration.apiUrl = res[this.API_URL_DEV_FIELD];
                     globalConfiguration.adminUrl = res[this.ADMIN_URL_DEV_FIELD];
-                }
-                else {
+                } else {
                     // Integration testing, or production mode -- the front-end
                     // is served by the Spring Boot application
                     globalConfiguration.apiUrl = res[this.API_URL_FIELD];
@@ -73,16 +72,21 @@ export class DataProvider {
             .catch(error => console.error('GET ' + configUrl + ' failed: ' + JSON.stringify(error)));
     }
 
-    fetchVersion() : Promise<Object> {
+    fetchVersion(): Promise<any> {
         return this.httpClient.get(globalConfiguration.adminUrl + '/version').toPromise();
     }
 
-    fetchCurrentTime(timezone: any): Promise<Object> {
+    fetchCurrentTime(timezone: any): Promise<any> {
         const url = globalConfiguration.apiUrl + '/datetime?timezone=' + encodeURIComponent( timezone );
         return this.httpClient.get( url ).toPromise();
     }
 
-    fetchTimezones(): Promise<Object> {
-        return this.httpClient.get(globalConfiguration.apiUrl + '/timezones').toPromise();
+    fetchTimezones(): Promise<any> {
+        return this.httpClient.get(globalConfiguration.apiUrl + '/timezones')
+            .toPromise();
+    }
+
+    fetchXmlFile(): Promise<any> {
+        return this.httpClient.get('/assets/pom.xml', { responseType: 'text' }).toPromise();
     }
 }

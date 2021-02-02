@@ -16,12 +16,6 @@ export class AppComponent implements OnInit, OnDestroy {
     public timezone = { zoneId: 'UTC', zoneOffset: 'Z' };               // current timezone
     public datetime: string;                                            // current datetime
     public rawTreeNodes = [RAW_TREE_NODE];
-    private xmlText = '<book>' +
-        '<title>Everyday Italian</title>' +
-        '<author>Giada De Laurentiis</author>' +
-        '<year>2005</year>' +
-        '</book>';
-
     public xmlTree: SimpleTreeNode[];
     private subscription: Subscription;
 
@@ -43,11 +37,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
 
-        this.xmlTree = [ SimpleTreeNodeXmlAdapter.fromXml( this.xmlText )];
+        this.loadXmlFile();
+
         this.mx.subscribe( message => {
             console.log('>>> AppComponent received:', message.type);
             if (message.type === MessageExchange.GLOBAL_CONFIG_AVAILABLE ) {
-                this.subscription = AppComponent.launchBackgroundLoop( this.updateClock( this ), 1000 );
+                this.subscription = AppComponent.launchBackgroundLoop( this.updateClock( this ), 100_000 );
             } else if (message.type === MessageExchange.CURRENT_TIMEZONE ) {
                 this.timezone = message.currentTimezone;
             }
@@ -93,5 +88,16 @@ export class AppComponent implements OnInit, OnDestroy {
     renderTimezone() {
         const offset = this.timezone.zoneOffset === 'Z' ? '' : ' (' + this.timezone.zoneOffset + ')';
         return this.timezone.zoneId + offset;
+    }
+
+    loadXmlFile() {
+        this.dataProvider.fetchXmlFile()
+            .then( data =>
+                this.xmlTree = [ SimpleTreeNodeXmlAdapter.fromXml( data ) ]
+            )
+            .catch( error =>
+                alert(
+                    JSON.stringify( error )
+                ));
     }
 }

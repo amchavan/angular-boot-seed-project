@@ -11,7 +11,10 @@ import { SimpleTreeNode } from './simple-tree/simple-tree-node';
  */
 export class SimpleTreeNodeXmlAdapter implements SimpleTreeNode {
 
-    private readonly xmlNode: Node;
+    /** A simple SimpleTreeNodeXmlAdapter cache */
+    private static xmlNodesCache = new WeakMap<Element, SimpleTreeNodeXmlAdapter>();
+
+    private readonly xmlNode: Element;
     private doShowChildren: boolean;
 
     public static fromXml(xml: string): SimpleTreeNodeXmlAdapter {
@@ -20,23 +23,50 @@ export class SimpleTreeNodeXmlAdapter implements SimpleTreeNode {
         return new SimpleTreeNodeXmlAdapter( xmlDocument.documentElement, true );
     }
 
-    constructor( xmlNode: Node, doShowChildren: boolean ) {
+    constructor( xmlNode: Element, doShowChildren: boolean ) {
         this.xmlNode = xmlNode;
         this.doShowChildren = doShowChildren;
+        SimpleTreeNodeXmlAdapter.xmlNodesCache.set( xmlNode, this );    // cache this adapter
     }
 
     get name(): string {
-        let nodeValue = this.xmlNode.childNodes[0].nodeValue;
-        nodeValue = nodeValue ? ': ' + nodeValue : '';
+        let nodeValue = '';
+        const childNode = this.xmlNode.childNodes[0];
+        if (childNode) {
+            nodeValue = ': ' + childNode.nodeValue;
+        }
         return this.xmlNode.nodeName + nodeValue;
     }
 
     get children(): SimpleTreeNode[] {
+        const firstChild = this.xmlNode.firstElementChild;
+        if (firstChild === null) {
+            return [];
+        }
+
+        const lastChild = this.xmlNode.lastElementChild;
+        let currentChild = firstChild;
         const ret: SimpleTreeNodeXmlAdapter[] = [];
-        this.xmlNode.childNodes.forEach( child => {
-            const adapter = new SimpleTreeNodeXmlAdapter( child, false );
-            ret.push( adapter );
-        });
+        while ( currentChild !== null ) {
+
+            // We have a child node, now we need to wrap that in an adapter
+            // We first look up the adapter in our cache, and if we can't find
+            // there we create a new one: the constructor will cache it for
+            // the next time
+            // --------------------------------------------------------------
+            let currentChildAdapter = SimpleTreeNodeXmlAdapter.xmlNodesCache.get( currentChild );
+            if ( currentChildAdapter === undefined ) {
+                currentChildAdapter = new SimpleTreeNodeXmlAdapter( currentChild, true );
+            }
+
+            // Add that adapter to the list of our children, then check that we are done
+            ret.push( currentChildAdapter );
+            if ( currentChild === lastChild ) {
+                break;  // reached the last child, we're done
+            }
+            currentChild = currentChild.nextElementSibling;     // proceed with the next sibling node
+        }
+
         return ret;
     }
 
@@ -44,12 +74,11 @@ export class SimpleTreeNodeXmlAdapter implements SimpleTreeNode {
         return this.doShowChildren;
     }
 
-    set showChildren( show) {
+    set showChildren( show ) {
         this.doShowChildren = show;
     }
 
     get childrenCount(): number {
-        const parent: ParentNode = (this.xmlNode as unknown as ParentNode);
-        return parent.childElementCount;
+        return this.xmlNode.childElementCount;
     }
 }
